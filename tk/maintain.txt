@@ -1,0 +1,70 @@
+# vim: ft=bash
+
+sudo grub-install --efi-directory=/boot --boot-directory=/boot /dev/nvme0n1p1 \
+    --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
+sudo mkinitcpio -P
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+usermod -a -G uucp acd407
+groupmod -a -U acd407 vboxusers
+
+# find executables
+find . -type f -perm 111
+
+LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -hr | head -25
+sh -c 'expac -H M "%011m\t%-20n\t%10d" $(comm -23 <(pacman -Qqen | sort) <({ pacman -Qqg xorg; expac -l '\\n' '%E' base; } | sort -u)) | sort -n -r' | head -n 20
+expac -H M '%m\t%n' | sort -h -r | head -n 20
+
+makepkg --printsrcinfo > .SRCINFO
+namcap PKGBUILD
+
+convmv -f cp936 -t utf8 --notest -r $(dir)
+
+rsync -azv --files-from=.config/acdrc/rsync_in.txt --exclude-from=.config/acdrc/rsync_ex.txt ~ acd407@192.168.124.10:/home/acd407
+
+sudo nft list ruleset
+sudo nft flush ruleset
+sudo nft -f /etc/nftables.conf
+
+ip address flush eth0
+ip address add 192.168.100.2/24 dev eth0
+ip link set eth0 up
+ip route add default via 192.168.100.1 dev eth0
+
+sudo modprobe nbd max_part=8
+sudo qemu-nbd --connect=/dev/nbd0 $(image)
+sudo qemu-nbd --disconnect /dev/nbd0
+
+sudo mount -t ufs -o ro,ufstype=ufs2 /dev/nvme0n1p4 /mnt/re
+
+vi /usr/bin/sensors-detect +2700
+
+wshowkeys -a bottom -b '#00000000' -f '#ffffffff' -F 'SauceCodePro Nerd Font Mono 30'
+
+echo "This is the mail body" | mail -s "Title" acd407@qq.com
+
+sudo losetup --partscan --show --find
+
+fluidsynth -a alsa -m alsa_seq -l -i
+
+waydroid session start
+echo "ip route add default via 192.168.24.1" | sudo waydroid shell
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+udevadm info --attribute-walk --path=$(udevadm info --query=path --name=/dev/video2)
+
+gpg --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 --recv
+
+sudo e2fsck -fy $("Check dev")
+
+getent services 465
+
+uv pip install --python $(which python) --target $(python -m site --user-site)
+
+GTK_DEBUG=interactive
+
+xh -b https://admin.mirrors.ustc.edu.cn/api/v1/metas | jq '.[] | select((.name | contains("archlinux")) and .syncing != false) | .name'
+
+QT_QPA_PLATFORM_PLUGIN_PATH=
+

@@ -1,0 +1,8 @@
+# vim: ft=bash
+
+jq -r '.data[] | select(.other != null) | "\(.en)\t\(.other)"' repository/words.json | column --table
+jq -r '.data[] | select(.frequency > 5) | select(.en | test("^re")) | "\(.en)\t\(.zh)"' repository/words.json | sort | column --table
+
+
+wget 'https://qy.xgwf.info/api/v1/client/subscribe?token=d91ad0ad33c272d1871fe6bfb837d119' -O list.txt
+base64 -d list.txt | sed -e 's|vmess://||' -e 's|\xd||' | awk '{print | "base64 -d";close("base64 -d");print ""}' |  perl -Xpe 's/\\\\u(\w{4})/chr(hex($1))/ge'

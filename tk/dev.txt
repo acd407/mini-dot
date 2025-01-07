@@ -1,0 +1,33 @@
+# vim: ft=bash
+
+gcc -fsanitize=undefined -fsanitize-undefined-trap-on-error
+
+mkimage -A arm -O linux -T kernel -C none -a 0X2000000 -e 0X2000000 -n "Linux-6.8.0+" -d zdImage udImage
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make LOCALVERSION="" EXTRAVERSION="" kernelrelease
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=install_modules make LOCALVERSION="" EXTRAVERSION="" modules_install
+
+qemu-system-x86_64 \
+    -cpu host \
+    -smp ${CPU_COUNT} \
+    -accel kvm \
+    -m 1G \
+    -nographic \
+    -kernel repository/linux/arch/x86/boot/bzImage \
+    -append "root=/dev/sda console=ttyS0" \
+    -hda repository/busybox/rootfs.ext4 
+
+# [profile.release]
+# strip = true
+# opt-level = 'z'
+# lto = true
+# codegen-units = 1
+# panic = 'abort'
+
+# fn print_type_of<T>(_: &T) {
+#     println!("{}", std::any::type_name::<T>())
+# }
+
+cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')
+
+rustc -C strip=debuginfo -C strip=symbols -C opt-level=z -C lto=true -C codegen-units=1 -C panic=abort
+

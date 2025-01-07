@@ -1,0 +1,15 @@
+*
+!.gitignore
+!aw.fish
+!bat.fish
+!erc.fish
+!fish_command_not_found.fish
+!fish_prompt.fish
+!fs.fish
+!lsblk.fish
+!pbd.fish
+!pp.fish
+!ssho.fish
+!svi.fish
+!tk.fish
+!wshowkeys.fish

@@ -1,0 +1,8 @@
+*
+!.gitignore
+!abbreviations.fish
+!bind.fish
+!envs.fish
+!import-envs.fish
+!modules.fish
+!motd.fish

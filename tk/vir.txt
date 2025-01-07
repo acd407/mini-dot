@@ -1,0 +1,3 @@
+# vim: ft=bash
+
+lxc-attach -v TERM=foot --clear-env alpine /usr/bin/fish
