@@ -32,8 +32,3 @@ vim.filetype.add {
         },
     },
 }
-vim.filetype.add {
-    extension = {
-        typ = 'typst'
-    }
-}

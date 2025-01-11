@@ -31,10 +31,6 @@ ip address add 192.168.100.2/24 dev eth0
 ip link set eth0 up
 ip route add default via 192.168.100.1 dev eth0
 
-sudo modprobe nbd max_part=8
-sudo qemu-nbd --connect=/dev/nbd0 $(image)
-sudo qemu-nbd --disconnect /dev/nbd0
-
 sudo mount -t ufs -o ro,ufstype=ufs2 /dev/nvme0n1p4 /mnt/re
 
 vi /usr/bin/sensors-detect +2700
@@ -60,11 +56,10 @@ sudo e2fsck -fy $("Check dev")
 
 getent services 465
 
-uv pip install --python $(which python) --target $(python -m site --user-site)
-
 GTK_DEBUG=interactive
 
 xh -b https://admin.mirrors.ustc.edu.cn/api/v1/metas | jq '.[] | select((.name | contains("archlinux")) and .syncing != false) | .name'
 
 QT_QPA_PLATFORM_PLUGIN_PATH=
 
+trust anchor --remove

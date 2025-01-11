@@ -70,13 +70,6 @@ local plugins = {
             require("Comment").setup()
         end,
     },
-    { -- smart fold
-        "kevinhwang91/nvim-ufo",
-        dependencies = { "kevinhwang91/promise-async" },
-        config = function()
-            require("plugins.ufo")
-        end
-    },
     {
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
@@ -150,7 +143,6 @@ local plugins = {
     },
     { -- 语法高亮
         "nvim-treesitter/nvim-treesitter",
-        build = "<Cmd>TSUpdate",
         config = function()
             require("plugins.treesitter")
         end
@@ -159,7 +151,6 @@ local plugins = {
         "nvim-treesitter/nvim-treesitter-context",
     },
     -- 无关的小物件 ------------------------------------------------------------
-    "dstein64/vim-startuptime",
     {
         "voldikss/vim-floaterm", -- 浮动终端
         config = function()

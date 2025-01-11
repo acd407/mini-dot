@@ -9,9 +9,6 @@ vim.opt.backup = false
 -- 显示命令行渐入的命令
 vim.opt.showcmd = true
 
--- 每个分割窗口都有单独的状态行
--- vim.opt.laststatus = 2
-
 -- 设置命令行高度为 1
 vim.opt.cmdheight = 1
 
@@ -43,7 +40,7 @@ vim.opt.wrap = true
 -- 光标行
 -- vim.opt.cursorline = true
 -- 光标以上和以下保持的最小屏幕行数
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 5
 
 -- mode 指示
 vim.opt.showmode = false

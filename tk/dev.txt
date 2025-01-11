@@ -14,7 +14,7 @@ qemu-system-x86_64 \
     -nographic \
     -kernel repository/linux/arch/x86/boot/bzImage \
     -append "root=/dev/sda console=ttyS0" \
-    -hda repository/busybox/rootfs.ext4 
+    -hda repository/busybox/rootfs.ext4
 
 # [profile.release]
 # strip = true
@@ -30,4 +30,8 @@ qemu-system-x86_64 \
 cargo install $(cargo install --list | egrep '^[a-z0-9_-]+ v[0-9.]+:$' | cut -f1 -d' ')
 
 rustc -C strip=debuginfo -C strip=symbols -C opt-level=z -C lto=true -C codegen-units=1 -C panic=abort
+
+sudo modprobe nbd max_part=8
+sudo qemu-nbd --connect=/dev/nbd0 $(image)
+sudo qemu-nbd --disconnect /dev/nbd0
 

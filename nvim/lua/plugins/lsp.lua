@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local opts = { buffer = ev.buf }
         wk.add({
             { "<space>rn", vim.lsp.buf.rename,                  desc = "rename",               opts },
-            { "<space>ca", builtin.quickfix,                    desc = "code action",          opts },
+            { "<space>ca", vim.lsp.buf.code_action,             desc = "code action",          opts },
             { "<space>w",  group = "workspace" },
             { "<space>wa", vim.lsp.buf.add_workspace_folder,    desc = "add workspace folder", opts },
             { "<space>wr", vim.lsp.buf.remove_workspace_folder, desc = "rm workspace folder",  opts },

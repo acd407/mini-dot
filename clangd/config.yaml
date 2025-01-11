@@ -1,2 +1,5 @@
 Diagnostics:
   UnusedIncludes: None
+CompileFlags:
+  Add: -Wno-unknown-warning-option
+  Remove: [-W*]

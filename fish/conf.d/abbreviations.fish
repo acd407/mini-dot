@@ -9,7 +9,8 @@ if status is-interactive
     abbr -a -- wcp wl-copy
     abbr -a -- pc 'pkg-config --cflags --libs'
     abbr -a -- df 'df -Th -x tmpfs'
-    abbr -a -- sw 'systemctl --user start sway.service'
+    abbr -a -- sw 'uwsm start sway'
+    abbr -a -- hy 'uwsm start hyprland'
 
     if not command -v --quiet arp
         abbr -a -- arp 'cat /proc/net/arp'
