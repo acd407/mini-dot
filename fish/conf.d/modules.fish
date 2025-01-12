@@ -1,19 +1,4 @@
 if status is-interactive
-    if test -d $HOME/.bin
-        set -a PATH $HOME/.bin
-        if test -d $HOME/.bin/custom
-            set -a PATH $HOME/.bin/custom
-        end
-        if test -n "$SWAYSOCK"
-            set -a PATH $HOME/.bin/wm
-        end
-    end
-    if test -d $HOME/.local/bin
-        set -a PATH $HOME/.local/bin
-    end
-    if test -d /usr/lib/ccache/bin/
-        set -p PATH /usr/lib/ccache/bin/
-    end
     if command -v --quiet npm
         if test -d $XDG_DATA_HOME/npm/bin
             set -a PATH $XDG_DATA_HOME/npm/bin
