@@ -54,7 +54,6 @@ end
 
 wk.add({
     { "<space>t",  group = "terminal" },
-    { "<space>tx", "<Cmd>FloatermNew xplr<CR>",    desc = "xplr" },
-    { "<space>tg", "<Cmd>FloatermNew lazygit<CR>", desc = "git" },
-    { "<space>tt", get_word,                       desc = "translate" },
+    { "<space>ty", "<Cmd>FloatermNew yazi<CR>", desc = "yazi" },
+    { "<space>tt", get_word,                    desc = "translate" },
 })

@@ -18,17 +18,3 @@ vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
         end
     end
 })
-
-vim.filetype.add {
-    pattern = {
-        ['.*'] = {
-            priority = -math.huge,
-            ---@diagnostic disable-next-line: unused-local
-            function(path, bufnr)
-                if string.match(path, "config/sway/") or string.match(path, "sway/config") then
-                    return 'swayconfig'
-                end
-            end,
-        },
-    },
-}

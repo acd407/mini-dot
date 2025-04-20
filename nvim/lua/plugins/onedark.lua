@@ -4,5 +4,9 @@ require('onedark').setup {
     lualine = {
         transparent = true,
     },
+    highlights = {
+        ["@comment"] = { fg = '#888888' },
+        ["@lsp.type.comment"] = { fg = '#888888' },
+    }
 }
 require('onedark').load()

@@ -1,5 +1,6 @@
 if status is-interactive
-    bind \cW backward-kill-bigword
-    bind \e\[1\;5C forward-bigword
-    bind \e\[1\;5D backward-bigword
+    bind ctrl-o edit_command_buffer
+    bind ctrl-w backward-kill-bigword
+    bind ctrl-right forward-bigword
+    bind ctrl-left backward-bigword
 end

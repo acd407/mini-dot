@@ -1,6 +1,6 @@
 local lspconfig = require('lspconfig')
 local wk = require("which-key")
-local builtin = require("telescope.builtin")
+local picker = require("snacks.picker")
 
 -- vim.api.nvim_create_autocmd("BufWritePost", {
 --     callback = function()
@@ -39,10 +39,22 @@ lspconfig.pylsp.setup {}
 -- }
 
 lspconfig.clangd.setup {}
+-- lspconfig.asm_lsp.setup {}
 lspconfig.bashls.setup {}
 lspconfig.taplo.setup {}
 lspconfig.texlab.setup {}
 lspconfig.fish_lsp.setup {}
+lspconfig.tinymist.setup {}
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "typst",
+    callback = function()
+        vim.bo.tabstop = 4
+        vim.bo.shiftwidth = 4
+        vim.bo.softtabstop = 4
+        vim.bo.expandtab = true
+    end,
+})
+
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -56,8 +68,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
         wk.add({
-            { "<space>rn", vim.lsp.buf.rename,                  desc = "rename",               opts },
-            { "<space>ca", vim.lsp.buf.code_action,             desc = "code action",          opts },
+            { "<space>f",  group = "alter code" },
+            { "<space>ff", vim.lsp.buf.format,                  desc = "format",               opts },
+            { "<space>fr", vim.lsp.buf.rename,                  desc = "rename",               opts },
+            { "<space>fa", vim.lsp.buf.code_action,             desc = "code action",          opts },
             { "<space>w",  group = "workspace" },
             { "<space>wa", vim.lsp.buf.add_workspace_folder,    desc = "add workspace folder", opts },
             { "<space>wr", vim.lsp.buf.remove_workspace_folder, desc = "rm workspace folder",  opts },
@@ -69,30 +83,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 desc = "ls workspace folder",
                 opts
             },
-            { "<space>d",  group = "diagnostic" },
-            { "<space>dN", vim.diagnostic.goto_prev, desc = "goto prev" },
-            { "<space>dn", vim.diagnostic.goto_next, desc = "goto next" },
-            { "<space>dd", builtin.diagnostics,      desc = "list" },
         })
         vim.keymap.set('n', '<C-k>', vim.diagnostic.open_float)
 
         wk.add({
             { "g",  group = "lsp" },
-            { "gD", builtin.lsp_type_definitions,          desc = "type definitions", opts },
-            { "gd", builtin.lsp_definitions,               desc = "definition",       opts },
-            { "gi", builtin.lsp_implementations,           desc = "implementation",   opts },
-            { "gr", builtin.lsp_references,                desc = "references",       opts },
-            { "gt", builtin.treesitter,                    desc = "types",            opts },
-            { "gs", builtin.grep_string,                   desc = "strings",          opts },
-            { "gS", builtin.lsp_dynamic_workspace_symbols, desc = "symbols",          opts },
-            {
-                "ff",
-                function()
-                    vim.lsp.buf.format { async = true }
-                end,
-                desc = "format",
-                opts
-            },
+            { "gt", picker.treesitter, desc = "types", opts },
         })
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = true })
         vim.keymap.set({ "n", "i" }, '<A-/>', vim.lsp.buf.signature_help, { buffer = true })

@@ -1,6 +1,7 @@
 # vim: ft=bash
 
 gcc -fsanitize=undefined -fsanitize-undefined-trap-on-error
+gcc -fsanitize=address -fsanitize-recover=address -fno-stack-protector -fno-omit-frame-pointer
 
 mkimage -A arm -O linux -T kernel -C none -a 0X2000000 -e 0X2000000 -n "Linux-6.8.0+" -d zdImage udImage
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- make LOCALVERSION="" EXTRAVERSION="" kernelrelease
@@ -34,4 +35,33 @@ rustc -C strip=debuginfo -C strip=symbols -C opt-level=z -C lto=true -C codegen-
 sudo modprobe nbd max_part=8
 sudo qemu-nbd --connect=/dev/nbd0 $(image)
 sudo qemu-nbd --disconnect /dev/nbd0
+
+${a%.*}
+sed 's/\x1b\[[0-9;]*m//g'
+
+# int fmt_to_5chars (double num, int base, char *buf) {
+#     const char *units_1000 = "BKMGTP";
+#     const char *units_1024 = "BKMGTP";
+#     const char *units = (base == 10) ? units_1000 : units_1024;
+#
+#     double scale = (base == 10) ? 1000.0 : 1024.0;
+#     int unit_idx = 0; // 0=B, 1=K, 2=M, 3=G, 4=T, 5=P
+#
+#     // 确定有效值和阶数
+#     while (num >= 1000.0 && unit_idx < 5) {
+#         num /= scale;
+#         unit_idx++;
+#     }
+#
+#     // 动态选择格式
+#     if (num >= 100.0) {
+#         snprintf (buf, 6, "%3.0f.%c", round (num), units[unit_idx]);
+#     } else if (num >= 10.0) {
+#         snprintf (buf, 6, "%4.1f%c", num, units[unit_idx]);
+#     } else {
+#         snprintf (buf, 6, "%4.2f%c", num, units[unit_idx]);
+#     }
+#
+#     return 1;
+# }
 

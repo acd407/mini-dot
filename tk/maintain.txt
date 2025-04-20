@@ -63,3 +63,5 @@ xh -b https://admin.mirrors.ustc.edu.cn/api/v1/metas | jq '.[] | select((.name |
 QT_QPA_PLATFORM_PLUGIN_PATH=
 
 trust anchor --remove
+
+sudo smartctl -A /dev/nvme0n1 >~/.config/data/ideapad-smart/$(date +%s).log

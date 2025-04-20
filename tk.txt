@@ -12,13 +12,7 @@
 # img -> chafa
 # traceroot -> nexttrace
 
-yazi
-
 #改hosts: /etc/resolv.conf
 #ssh -D 127.0.0.1:10080 -CqTnNf 10.195.106.176
 #.config/environment.d/47.conf
-#all_proxy=socks5://127.0.0.1:10080
-
-fzf-lua
-# 默认 ctrl-g
-# 候选框文件名过长
+ ALL_PROXY=socks5://acd407:0x08000000@localhost:4708

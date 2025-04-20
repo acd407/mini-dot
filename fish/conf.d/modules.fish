@@ -1,15 +1,15 @@
 if status is-interactive
     if command -v --quiet npm
         if test -d $XDG_DATA_HOME/npm/bin
-            set -a PATH $XDG_DATA_HOME/npm/bin
+            fish_add_path -a $XDG_DATA_HOME/npm/bin
         end
         if test -d $HOME/node_modules/.bin
-            set -a PATH $HOME/node_modules/.bin
+            fish_add_path -a $HOME/node_modules/.bin
         end
     end
     if command -v --quiet cargo
         if test -d $HOME/.cargo/bin
-            set -a PATH $HOME/.cargo/bin
+            fish_add_path -a $HOME/.cargo/bin
         end
         set -gx RUSTUP_DIST_SERVER 'https://rsproxy.cn'
         set -gx RUSTUP_UPDATE_ROOT 'https://rsproxy.cn/rustup'
@@ -17,9 +17,6 @@ if status is-interactive
     if command -v --quiet go
         set -gx GOPROXY 'https://goproxy.io'
         set -gx GOPATH "$HOME/.cache/go"
-    end
-    if command -v --quiet vf
-        set -gx VIRTUALFISH_HOME $PWD/.local/share/venv
     end
     if command -v --quiet vivid
         set -gx LS_COLORS (vivid generate one-dark)

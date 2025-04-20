@@ -5,8 +5,10 @@ vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
 
 -- vim.api.nvim_set_keymap("n", "<C-X>", "<Cmd>Ex<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-Up>", "5k", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-Down>", "5j", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<C-Up>", "5k", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<C-Down>", "5j", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<C-Up>", "5k")
+vim.keymap.set({ "n", "v" }, "<C-Down>", "5j")
 
 -- TabPage
 -- use alt to move from window
