@@ -18,11 +18,11 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 })
 
 -- 删除行尾空格
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    callback = function()
-        local save = vim.fn.winsaveview() -- 保存光标位置
-        vim.cmd([[%s/\s\+$//e]])          -- 执行删除尾部空格的命令
-        vim.fn.winrestview(save)          -- 恢复光标位置
-    end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = "*",
+--     callback = function()
+--         local save = vim.fn.winsaveview() -- 保存光标位置
+--         vim.cmd([[%s/\s\+$//e]])          -- 执行删除尾部空格的命令
+--         vim.fn.winrestview(save)          -- 恢复光标位置
+--     end,
+-- })

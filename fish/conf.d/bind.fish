@@ -3,4 +3,5 @@ if status is-interactive
     bind ctrl-w backward-kill-bigword
     bind ctrl-right forward-bigword
     bind ctrl-left backward-bigword
+    bind ctrl-shift-l "clear" repaint
 end

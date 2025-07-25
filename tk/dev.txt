@@ -17,6 +17,9 @@ qemu-system-x86_64 \
     -append "root=/dev/sda console=ttyS0" \
     -hda repository/busybox/rootfs.ext4
 
+makepkg --printsrcinfo > .SRCINFO
+namcap PKGBUILD
+
 # [profile.release]
 # strip = true
 # opt-level = 'z'

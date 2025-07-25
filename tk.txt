@@ -15,4 +15,5 @@
 #改hosts: /etc/resolv.conf
 #ssh -D 127.0.0.1:10080 -CqTnNf 10.195.106.176
 #.config/environment.d/47.conf
- ALL_PROXY=socks5://acd407:0x08000000@localhost:4708
+ALL_PROXY=socks5://acd407:0x08000000@localhost:4708
+uwsm start -e -D xfce -- startxfce4 --wayland

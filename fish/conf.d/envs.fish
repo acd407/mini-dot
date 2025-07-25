@@ -17,6 +17,9 @@ if status is-interactive
         if test -d $HOME/.bin/custom
             fish_add_path -a $HOME/.bin/custom
         end
+        if test -d $HOME/.bin/appimage
+            fish_add_path -a $HOME/.bin/appimage
+        end
         if test -n "$SWAYSOCK"
             fish_add_path -a $HOME/.bin/wm
         end
@@ -29,5 +32,14 @@ if status is-interactive
     end
     set -gx PIP_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
     set -gx UV_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
-    bass source /etc/profile
+    set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/pythonrc
+
+    set -e SSH_AGENT_PID
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+
+    if test -n "$WAYLAND_DISPLAY"
+        # 更新 TTY 信息，让 pinentry 弹出在正确的位置
+        set -gx GPG_TTY (tty)
+        gpg-connect-agent updatestartuptty /bye >/dev/null
+    end
 end

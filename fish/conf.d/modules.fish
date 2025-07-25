@@ -16,7 +16,8 @@ if status is-interactive
     end
     if command -v --quiet go
         set -gx GOPROXY 'https://goproxy.io'
-        set -gx GOPATH "$HOME/.cache/go"
+        set -gx GOPATH "$XDG_DATA_HOME/go"
+        fish_add_path -a $GOPATH/bin
     end
     if command -v --quiet vivid
         set -gx LS_COLORS (vivid generate one-dark)

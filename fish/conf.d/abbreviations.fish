@@ -20,6 +20,7 @@ if status is-interactive
     abbr -a -- lxc-info 'lxc-info -q'
     abbr -a -- base16 'xxd -ps'
     abbr -a -- flatpak 'flatpak --user'
+    abbr -a -- tlmgr 'tlmgr --usermode'
 
     if not command -v --quiet arp
         abbr -a -- arp 'cat /proc/net/arp'
