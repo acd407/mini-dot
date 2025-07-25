@@ -34,8 +34,10 @@ if status is-interactive
     set -gx UV_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
     set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/pythonrc
 
-    set -e SSH_AGENT_PID
-    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+    if command -v --quiet gpgconf
+        set -e SSH_AGENT_PID
+        set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+    end
 
     if test -n "$WAYLAND_DISPLAY"
         # 更新 TTY 信息，让 pinentry 弹出在正确的位置
