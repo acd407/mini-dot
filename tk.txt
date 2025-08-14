@@ -16,4 +16,16 @@
 #ssh -D 127.0.0.1:10080 -CqTnNf 10.195.106.176
 #.config/environment.d/47.conf
 ALL_PROXY=socks5://acd407:0x08000000@localhost:4708
-uwsm start -e -D xfce -- startxfce4 --wayland
+
+uwsm - python - xdg, systemd, startup
+snake - cpp
+seedstatus - cpp
+ebpf - python, c
+qt - cpp
+latex
+deep_learning
+
+router: 
+curl http://192.168.10.1/__factory_verify_mode__
+ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.10.1
+passwd wifi@cmcc

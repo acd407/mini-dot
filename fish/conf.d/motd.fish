@@ -1,4 +1,4 @@
-if test $TERM = linux
+if test "$TERM" = linux
     echo -n -e \
         '\\e]P0000000' \
         '\\e]P1db0000' \

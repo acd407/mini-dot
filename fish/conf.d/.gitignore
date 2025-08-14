@@ -3,6 +3,6 @@
 !abbreviations.fish
 !bind.fish
 !envs.fish
-!import-envs.fish
+!colors.fish
 !modules.fish
 !motd.fish

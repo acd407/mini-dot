@@ -4,20 +4,13 @@ if status is-interactive
     abbr -a -- sp speak
     abbr -a -- hx helix
     abbr -a -- sc systemctl
-    abbr -a -- sct systemctl-tui
     abbr -a -- scu 'systemctl --user'
     abbr -a -- wcp wl-copy
     abbr -a -- pc 'pkg-config --cflags --libs'
     abbr -a -- df 'df -Th -x tmpfs'
-    abbr -a -- uw 'uwsm start default'
-    abbr -a -- sw 'uwsm start sway'
-    abbr -a -- hy 'uwsm start hyprland'
-    abbr -a -- relock "env (cat /proc/(pidof hypridle)/environ | tr '\0' '\n' | rg '^(SWAYSOCK|WAYLAND_DISPLAY)') ~/.bin/wm/lock"
     abbr -a -- img chafa
     abbr -a -- yz yazi
     abbr -a -- ping 'ping -n'
-    abbr -a -- lxc-ls 'lxc-ls -q'
-    abbr -a -- lxc-info 'lxc-info -q'
     abbr -a -- base16 'xxd -ps'
     abbr -a -- flatpak 'flatpak --user'
     abbr -a -- tlmgr 'tlmgr --usermode'

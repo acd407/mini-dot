@@ -44,4 +44,8 @@ if status is-interactive
         set -gx GPG_TTY (tty)
         gpg-connect-agent updatestartuptty /bye >/dev/null
     end
+
+    if command -v --quiet abduco
+        set -gx ABDUCO_SOCKET_DIR $XDG_DATA_HOME
+    end
 end
