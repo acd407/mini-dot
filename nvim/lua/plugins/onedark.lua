@@ -1,6 +1,7 @@
 return {
     { -- 主题
         "navarasu/onedark.nvim",
+        cond = not vim.g.vscode,
         config = function()
             require('onedark').setup {
                 style = 'warm',

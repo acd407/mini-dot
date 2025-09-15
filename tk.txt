@@ -25,7 +25,18 @@ qt - cpp
 latex
 deep_learning
 
+sudo dnsmasq \
+  --interface=enp5s0f4u1 \
+  --dhcp-range=192.168.17.100,192.168.17.200,255.255.255.0 \
+  --dhcp-option=3,192.168.17.1 \
+  --dhcp-option=6,8.8.8.8 \
+  --port=0 \
+  --no-daemon
+
 router: 
 curl http://192.168.10.1/__factory_verify_mode__
 ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.10.1
 passwd wifi@cmcc
+
+LTO=thin KMI_SYMBOL_LIST_STRICT_MODE=0 BUILD_CONFIG=common/build.config.gki.aarch64 build/build.sh
+apt install wget curl fish fastfetch vivid vis git ripgrep rsync openssh htop

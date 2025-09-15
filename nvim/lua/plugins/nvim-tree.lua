@@ -1,6 +1,7 @@
 return {
     { -- 文件管理器
         "nvim-tree/nvim-tree.lua",
+        cond = not vim.g.vscode,
         config = function()
             -- disable netrw at the very start of your init.lua
             vim.g.loaded_netrw = 1

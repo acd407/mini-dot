@@ -51,11 +51,6 @@ function fish_prompt --description 'Write out the prompt'
         set prompt_status $color_status '[' $last_status ']' $color_normal
     end
 
-    set -l prompt_vf ''
-    if set -q VIRTUAL_ENV; and not string match -q '*/cde' $VIRTUAL_ENV
-        set prompt_vf (set_color brcyan) '(' (string match -r '[^/]*$' $VIRTUAL_ENV) ')' (set_color normal)
-    end
-
     # no space around prompt_pwd, while fish_vcs_prompt has a space before it.
     echo -e -n -s \
         $color_user $USER $color_normal @ \
@@ -64,7 +59,6 @@ function fish_prompt --description 'Write out the prompt'
         (if functions -q fish_vcs_prompt
             echo -e -n -s $color_vcs (fish_vcs_prompt)
         end) $color_normal \
-        ' ' $prompt_vf \
         ' ' $prompt_status \
         '\n' $suffix ' ' $color_normal
 

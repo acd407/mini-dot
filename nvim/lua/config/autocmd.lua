@@ -11,11 +11,13 @@ local reset_cursor = function()
     vim.api.nvim_chan_send(vim.v.stderr, clear_str)
 end
 
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-    callback = function()
-        reset_cursor()
-    end,
-})
+if not vim.g.vscode then
+    vim.api.nvim_create_autocmd({ "VimLeave" }, {
+        callback = function()
+            reset_cursor()
+        end,
+    })
+end
 
 -- 删除行尾空格
 -- vim.api.nvim_create_autocmd("BufWritePre", {

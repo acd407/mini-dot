@@ -1,18 +1,21 @@
 return {
     { -- 显示颜色
         "NvChad/nvim-colorizer.lua",
+        cond = not vim.g.vscode,
         config = function()
             require("colorizer").setup {}
         end
     },
     { -- 显示git里增加，删除，编辑地方
         "lewis6991/gitsigns.nvim",
+        cond = not vim.g.vscode,
         config = function()
             require("gitsigns").setup()
         end,
     },
     {
         "folke/which-key.nvim",
+        cond = not vim.g.vscode,
         event = "VeryLazy",
         init = function()
             vim.o.timeout = true
@@ -53,6 +56,7 @@ return {
     },
     {
         'chomosuke/typst-preview.nvim',
+        cond = not vim.g.vscode,
         ft = 'typst',
         version = '1.*',
         opts = {

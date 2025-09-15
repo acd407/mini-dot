@@ -26,8 +26,8 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 -- Vim 将根据当前上下文自动使用空格和制表符的混合进行缩进。
 vim.opt.smarttab = true
--- 80 列限制
-vim.opt.colorcolumn = "81"
+-- 100 列限制
+vim.opt.colorcolumn = "101"
 -- 在 Vim 中显示换行线的可视指示
 vim.opt.breakindent = true
 -- 自动缩进
@@ -71,6 +71,9 @@ vim.opt.background = "dark"
 -- 允许读取工作区配置
 vim.o.exrc = true
 
+-- 禁止响铃
+vim.opt.visualbell = true
+
 vim.g.terminal_color_0 = "#303030"
 vim.g.terminal_color_1 = "#DB0000"
 vim.g.terminal_color_2 = "#60BD07"
@@ -98,5 +101,3 @@ vim.api.nvim_set_hl(0, "FloatBorder", { bg = bg_color })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg_color })
 
 vim.g.vsnip_snippet_dir = "~/.config/vsnip"
-
--- vim.env.PATH = vim.fn.system("printenv PATH")

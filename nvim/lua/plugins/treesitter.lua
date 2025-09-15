@@ -1,6 +1,7 @@
 return {
     { -- 语法高亮
         "nvim-treesitter/nvim-treesitter",
+        cond = not vim.g.vscode,
         config = function()
             require("nvim-treesitter.configs").setup({
                 auto_install = true,

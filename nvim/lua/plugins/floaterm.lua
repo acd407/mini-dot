@@ -1,6 +1,7 @@
 return {
     {
         "voldikss/vim-floaterm", -- 浮动终端
+        cond = not vim.g.vscode,
         config = function()
             local wk = require('which-key')
             local lualine = require('lualine')

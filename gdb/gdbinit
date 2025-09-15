@@ -1,6 +1,6 @@
-add-auto-load-safe-path ~/repository/kernel/linux
-add-auto-load-safe-path ~/repository/kernel/xv6-labs-2024
-add-auto-load-safe-path ~/repository/embedded/mini-initramfs
+add-auto-load-safe-path ~/repository/kernel
+add-auto-load-safe-path ~/repository/embedded
+add-auto-load-safe-path /usr/share
 set print pretty
 set tui mouse-events off
 set style tui-border foreground none

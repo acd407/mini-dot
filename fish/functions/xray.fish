@@ -19,7 +19,7 @@ function format_storage_units --argument bytes
 end
 
 function xray --description "Add Xray subcommands"
-    if test "$argv[1]" = stat
+    if test "$argv[1]" = statistics
         set -l up (xray api stats -name "outbound>>>proxy>>>traffic>>>uplink" | jq '.stat.value')
         if test $up != null
             echo -en "Upload:   "
@@ -29,6 +29,15 @@ function xray --description "Add Xray subcommands"
         if test $down != null
             echo -en "Download: "
             format_storage_units $down
+        end
+    else if test "$argv[1]" = status
+        set -l rule "fwmark 0x20 lookup 100 pre 32765"
+        if test "$argv[2]" = up
+            doas sh -c "ip rule add $rule; ip -6 rule add $rule"
+        else if test "$argv[2]" = down
+            doas sh -c "ip rule del $rule; ip -6 rule del $rule"
+        else
+            sh -c "{ ip rule; ip -6 rule; } | grep \"fwmark 0x20\""
         end
     else
         command xray $argv
