@@ -27,8 +27,11 @@ if status is-interactive
     if test -d $HOME/.local/bin
         fish_add_path -a $HOME/.local/bin
     end
-    if test -d /usr/lib/ccache/bin
-        fish_add_path /usr/lib/ccache/bin
+    if test -d /usr/lib/ccache
+        fish_add_path /usr/lib/ccache
+        if test -d /usr/lib/ccache/bin
+            fish_add_path /usr/lib/ccache/bin
+        end
     end
     set -gx PIP_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
     set -gx UV_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
@@ -48,4 +51,6 @@ if status is-interactive
     if command -v --quiet abduco
         set -gx ABDUCO_SOCKET_DIR $XDG_DATA_HOME
     end
+    set -g fish_history_size 50000
+    set -g fish_history_max_size 100000
 end
