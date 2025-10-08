@@ -24,8 +24,16 @@ if status is-interactive
             fish_add_path -a $HOME/.bin/wm
         end
     end
-    if test -d $HOME/.local/bin
-        fish_add_path -a $HOME/.local/bin
+    if test -d $HOME/.local
+        if test -d $HOME/.local/lib
+            set -gx LD_LIBRARY_PATH $HOME/.local/lib
+            if test -d $HOME/.local/lib/pkgconfig
+                set -gx PKG_CONFIG_PATH $HOME/.local/lib/pkgconfig
+            end
+        end
+        if test -d $HOME/.local/bin
+            fish_add_path -a $HOME/.local/bin
+        end
     end
     if test -d /usr/lib/ccache
         fish_add_path /usr/lib/ccache
@@ -51,6 +59,13 @@ if status is-interactive
     if command -v --quiet abduco
         set -gx ABDUCO_SOCKET_DIR $XDG_DATA_HOME
     end
-    set -g fish_history_size 50000
-    set -g fish_history_max_size 100000
+
+    if test "$TERM" = linux -o "$XDG_SESSION_TYPE" != x11 -a "$XDG_SESSION_TYPE" != wayland
+        set -g fish_history disabled
+        set -g fish_history_size 0
+        set -g fish_history_path /dev/null
+    else
+        set -g fish_history_size 50000
+        set -g fish_history_max_size 100000
+    end
 end

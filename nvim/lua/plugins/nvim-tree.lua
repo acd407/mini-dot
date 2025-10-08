@@ -10,6 +10,14 @@ return {
             -- optionally enable 24-bit colour
             vim.opt.termguicolors = true
 
+            local api = require("nvim-tree.api")
+            local function opts(desc)
+                return { desc = "nvim-tree: " .. desc, noremap = true, silent = true, nowait = true }
+            end
+            vim.keymap.set("n", "<space>e", function()
+                api.tree.toggle({ path = vim.fn.getcwd(), find_file = false, update_root = false, focus = true, })
+            end, opts("toggle"))
+
             require("nvim-tree").setup({
                 sort = {
                     sorter = "case_sensitive",
@@ -27,8 +35,6 @@ return {
                     dotfiles = true,
                 },
             })
-
-            vim.api.nvim_set_keymap("n", "<space>e", "<Cmd>NvimTreeToggle<CR>", { noremap = true, silent = true })
         end,
         version = "*",
         dependencies = { "nvim-tree/nvim-web-devicons" },

@@ -1,11 +1,9 @@
 return {
     { -- cscope
         "dhananjaylatkar/cscope_maps.nvim",
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-        },
         config = function()
-            require("cscope_maps").setup {
+            local cscope_maps = require("cscope_maps")
+            cscope_maps.setup {
                 -- maps related defaults
                 disable_maps = false,      -- "true" disables default keymaps
                 skip_input_prompt = false, -- "true" doesn't ask for input
@@ -22,7 +20,7 @@ return {
                     -- cscope executable
                     exec = "cscope",                      -- "cscope" or "gtags-cscope"
                     -- choose your fav picker
-                    picker = "telescope",                 -- "quickfix", "telescope", "fzf-lua" or "mini-pick"
+                    picker = "snacks",                    -- "quickfix", "telescope", "fzf-lua" or "mini-pick"
                     -- size of quickfix window
                     qf_window_size = 5,                   -- any positive integer
                     -- position of quickfix window
@@ -46,6 +44,7 @@ return {
                     tree_hl = true, -- toggle tree highlighting
                 }
             }
+            vim.keymap.set("n", "<space>st", function() cscope_maps.cscope_prompt("s") end)
             vim.keymap.del({ 'n', 'v' }, '<C-]>')
         end
     }

@@ -21,7 +21,11 @@ return {
             vim.o.timeout = true
             vim.o.timeoutlen = 500
         end,
-        opts = {}
+        opts = {
+            win = {
+                border = 'rounded'
+            }
+        }
     },
     { -- gcc和gc注释
         "numToStr/Comment.nvim",
@@ -40,7 +44,7 @@ return {
     {
         "fei6409/log-highlight.nvim",
         config = function()
-            require("log-highlight").setup()
+            require("log-highlight").setup {}
         end,
     },
     {

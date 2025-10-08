@@ -25,5 +25,6 @@ return {
     },
     { -- 显示当前函数
         "nvim-treesitter/nvim-treesitter-context",
+        cond = not vim.g.vscode,
     }
 }

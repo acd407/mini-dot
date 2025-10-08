@@ -1,6 +1,31 @@
-# source /etc/profile with bash
+# 该文件最后被执行
+# source /etc/profile with dash
 if status is-login
-    eval (dash -c '. /etc/profile >/dev/null 2>&1; export -p') 2>/dev/null
+    set -l oldenv (mktemp -p /tmp env.old.XXXXXX)
+    set -l newenv (mktemp -p /tmp env.new.XXXXXX)
+
+    dash -c '
+        export -p | sort >"'$oldenv'"
+        . /etc/profile >/dev/null 2>&1
+        export -p | sort >"'$newenv'"
+    '
+
+    set -l etc_envs (comm -13 $oldenv $newenv | grep -v '^export LC_')
+
+    set -l etc_envs_keys
+    for line in $etc_envs
+        set -l var_name (string replace -r '^export ([^=]+).*' '$1' -- $line)
+        set -a etc_envs_keys $var_name
+    end
+
+    if set -q etc_envs_keys[1]
+        eval $etc_envs
+        systemctl --user import-environment $etc_envs_keys
+    else
+        echo "No new environment variables to import" >&2
+    end
+
+    rm -f $oldenv $newenv
 end
 
 # Piping last command's output

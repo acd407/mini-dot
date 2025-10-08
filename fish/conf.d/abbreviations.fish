@@ -14,6 +14,9 @@ if status is-interactive
     abbr -a -- base16 'xxd -ps'
     abbr -a -- flatpak 'flatpak --user'
     abbr -a -- tlmgr 'tlmgr --usermode'
+    abbr -a -- ni 'systemctl --user start niri.service'
+    abbr -a -- sw 'uwsm start sway'
+    abbr -a -- relock "env (cat /proc/(pidof hypridle)/environ | tr '\0' '\n' | rg '^(SWAYSOCK|WAYLAND_DISPLAY)') ~/.bin/wm/lock"
 
     if not command -v --quiet arp
         abbr -a -- arp 'cat /proc/net/arp'
@@ -22,17 +25,32 @@ if status is-interactive
         abbr -a -- paru pacman
     end
 
-    if type -q nvim
-        set -x EDITOR nvim
-        set -x MANPAGER 'nvim +Man!'
-    else if type -q vim
-        set -x EDITOR vim
-    else if type -q vis
-        set -x EDITOR vis
-    else if type -q helix
-        set -x EDITOR helix
+    # Find the best available editor
+    set -l real_editor
+    if type -q vi
+        if test -L (which vi)
+            set real_editor (basename (readlink (which vi)))
+        else
+            set real_editor vi
+        end
     else
-        set -x EDITOR vi
+        for e in nvim vim vis
+            if type -q $e
+                set real_editor $e
+                break
+            end
+        end
     end
-    abbr -a -- vi $EDITOR
+
+    # Set editor and manpager
+    if test -n "$real_editor"
+        switch $real_editor
+            case nvim
+                set -x EDITOR nvim
+                set -x MANPAGER 'nvim +Man!'
+            case '*'
+                set -x EDITOR $real_editor
+        end
+        abbr -a -- vi $EDITOR
+    end
 end

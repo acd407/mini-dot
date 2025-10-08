@@ -91,13 +91,4 @@ vim.g.terminal_color_13 = "#AD7FA8"
 vim.g.terminal_color_14 = "#34E2E2"
 vim.g.terminal_color_15 = "#EEEEEC"
 
-vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#D3D7CF" })
-vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#D3D7CF" })
-vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#D3D7CF" })
-
-local bg_color = "#3A3939"
-vim.api.nvim_set_hl(0, "Conceal", { bg = bg_color })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = bg_color })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg_color })
-
 vim.g.vsnip_snippet_dir = "~/.config/vsnip"

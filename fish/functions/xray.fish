@@ -44,4 +44,4 @@ function xray --description "Add Xray subcommands"
     end
 end
 
-complete -c xray -f -a "run version api convert tls uuid x25519 wg stat"
+complete -c xray -n __fish_use_subcommand -xa "run version api convert tls uuid x25519 wg status statistics"

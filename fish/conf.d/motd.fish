@@ -1,5 +1,5 @@
 if test "$TERM" = linux
-    echo -n -e \
+    echo -e \
         '\\e]P0000000' \
         '\\e]P1db0000' \
         '\\e]P260bd07' \

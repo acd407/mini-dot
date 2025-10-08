@@ -8,4 +8,4 @@ function venv --description "Enter python virtual environment"
 end
 
 set -l VENV_PATH $HOME/.local/share/venv
-complete -c venv -f -a "$(string match -rg "([^/]*)\$" $VENV_PATH/*)"
+complete -c venv -n __fish_use_subcommand -xa "$(string match -rg "([^/]*)\$" $VENV_PATH/*)"
