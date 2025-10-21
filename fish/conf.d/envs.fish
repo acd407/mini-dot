@@ -24,16 +24,8 @@ if status is-interactive
             fish_add_path -a $HOME/.bin/wm
         end
     end
-    if test -d $HOME/.local
-        if test -d $HOME/.local/lib
-            set -gx LD_LIBRARY_PATH $HOME/.local/lib
-            if test -d $HOME/.local/lib/pkgconfig
-                set -gx PKG_CONFIG_PATH $HOME/.local/lib/pkgconfig
-            end
-        end
-        if test -d $HOME/.local/bin
-            fish_add_path -a $HOME/.local/bin
-        end
+    if test -d $HOME/.local/bin
+        fish_add_path -a $HOME/.local/bin
     end
     if test -d /usr/lib/ccache
         fish_add_path /usr/lib/ccache
@@ -44,6 +36,7 @@ if status is-interactive
     set -gx PIP_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
     set -gx UV_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
     set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/pythonrc
+    set -gx PYTHON_HISTORY $XDG_STATE_HOME/python_history
 
     if command -v --quiet gpgconf
         set -e SSH_AGENT_PID
@@ -56,8 +49,8 @@ if status is-interactive
         gpg-connect-agent updatestartuptty /bye >/dev/null
     end
 
-    if command -v --quiet abduco
-        set -gx ABDUCO_SOCKET_DIR $XDG_DATA_HOME
+    if command -v --quiet firefox
+        set -gx BROWSER firefox
     end
 
     if test "$TERM" = linux -o "$XDG_SESSION_TYPE" != x11 -a "$XDG_SESSION_TYPE" != wayland

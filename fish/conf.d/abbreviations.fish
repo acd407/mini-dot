@@ -14,8 +14,7 @@ if status is-interactive
     abbr -a -- base16 'xxd -ps'
     abbr -a -- flatpak 'flatpak --user'
     abbr -a -- tlmgr 'tlmgr --usermode'
-    abbr -a -- ni 'systemctl --user start niri.service'
-    abbr -a -- sw 'uwsm start sway'
+    abbr -a -- ni niri-session
     abbr -a -- relock "env (cat /proc/(pidof hypridle)/environ | tr '\0' '\n' | rg '^(SWAYSOCK|WAYLAND_DISPLAY)') ~/.bin/wm/lock"
 
     if not command -v --quiet arp

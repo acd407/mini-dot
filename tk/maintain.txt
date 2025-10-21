@@ -1,9 +1,11 @@
 # vim: ft=bash
 
-doas grub-install --efi-directory=/boot --boot-directory=/boot /dev/nvme0n1p1 \
+sudo grub-install --efi-directory=/boot --boot-directory=/boot /dev/nvme0n1p1 \
     --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
-doas mkinitcpio -P
-doas grub-mkconfig -o /boot/grub/grub.cfg
+sudo mkinitcpio -P
+sudo sbctl sign-all
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo grub-mkfont -s 32 -o /boot/grub/fonts/unicode.pf2 /usr/share/fonts/misc/ter-u32b.otb
 
 usermod -a -G uucp acd407
 groupmod -a -U acd407 vboxusers
@@ -22,27 +24,25 @@ ip address add 192.168.100.2/24 dev eth0
 ip link set eth0 up
 ip route add default via 192.168.100.1 dev eth0
 
-doas mount -t ufs -o ro,ufstype=ufs2 /dev/nvme0n1p4 /mnt/re
+sudo mount -t ufs -o ro,ufstype=ufs2 /dev/nvme0n1p4 /mnt/re
 
 vi /usr/bin/sensors-detect +2700
 
-wshowkeys -a bottom -b '#00000000' -f '#ffffffff' -F 'SauceCodePro Nerd Font Mono 30'
-
 echo "This is the mail body" | mail -s "Title" acd407@qq.com
 
-doas losetup --partscan --show --find
+sudo losetup --partscan --show --find
 
 fluidsynth -a alsa -m alsa_seq -l -i
 
-doas udevadm control --reload-rules
-doas udevadm trigger
+sudo udevadm control --reload-rules
+sudo udevadm trigger
 udevadm info --attribute-walk --path=$(udevadm info --query=path --name=/dev/video2)
 
 udevadm info --export-db --no-pager
 
 gpg --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 --recv
 
-doas e2fsck -fy $("Check dev")
+sudo e2fsck -fy $("Check dev")
 
 GTK_DEBUG=interactive
 
@@ -52,4 +52,4 @@ QT_QPA_PLATFORM_PLUGIN_PATH=
 
 trust anchor --remove
 
-doas smartctl -A /dev/nvme0n1 >~/.config/data/ideapad-smart/$(date +%s).log
+sudo smartctl -A /dev/nvme0n1 | tee ~/.config/data/ideapad-smart/$(date +%s).log
