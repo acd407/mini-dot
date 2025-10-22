@@ -1,6 +1,0 @@
-require("keymaps")
-require("options")
-require("config.lazy")
-require("config.filetype")
-require("config.autocmd")
-require("config.functions")
