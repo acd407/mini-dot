@@ -22,4 +22,32 @@ if status is-interactive
     if command -v --quiet vivid
         set -gx LS_COLORS (vivid generate one-dark)
     end
+    if test "$TERM" = linux -o "$XDG_SESSION_TYPE" != x11 -a "$XDG_SESSION_TYPE" != wayland
+        set -g fish_history disabled
+        set -g fish_history_size 0
+        set -g fish_history_path /dev/null
+    else
+        set -g fish_history_size 50000
+        set -g fish_history_max_size 100000
+    end
+
+    set -gx PIP_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
+    set -gx UV_INDEX_URL https://pypi.mirrors.ustc.edu.cn/simple
+    set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/pythonrc
+    set -gx PYTHON_HISTORY $XDG_STATE_HOME/python_history
+
+    if command -v --quiet gpgconf
+        set -e SSH_AGENT_PID
+        set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+    end
+
+    if test -n "$WAYLAND_DISPLAY"
+        # 更新 TTY 信息，让 pinentry 弹出在正确的位置
+        set -gx GPG_TTY (tty)
+        gpg-connect-agent updatestartuptty /bye >/dev/null
+    end
+
+    if command -v --quiet firefox
+        set -gx BROWSER firefox
+    end
 end
