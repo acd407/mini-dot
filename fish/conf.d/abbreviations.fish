@@ -15,7 +15,6 @@ if status is-interactive
     abbr -a -- flatpak 'flatpak --user'
     abbr -a -- tlmgr 'tlmgr --usermode'
     abbr -a -- ni niri-session
-    abbr -a -- relock "env (cat /proc/(pidof hypridle)/environ | tr '\0' '\n' | rg '^(SWAYSOCK|WAYLAND_DISPLAY)') ~/.bin/wm/lock"
 
     if not command -v --quiet arp
         abbr -a -- arp 'cat /proc/net/arp'

@@ -1,8 +1,8 @@
 # 该文件最后被执行
 # source /etc/profile with dash
 if status is-login
-    set -l oldenv (mktemp -p $PREFIX/tmp env.old.XXXXXX)
-    set -l newenv (mktemp -p $PREFIX/tmp env.new.XXXXXX)
+    set -l oldenv (mktemp -p "$PREFIX/tmp" env.old.XXXXXX)
+    set -l newenv (mktemp -p "$PREFIX/tmp" env.new.XXXXXX)
 
     dash -c '
         export -p | sort >"'$oldenv'"
