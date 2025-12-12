@@ -20,7 +20,9 @@ if status is-login
 
     if set -q etc_envs_keys[1]
         eval $etc_envs
-        systemctl --user import-environment $etc_envs_keys
+        if command -v --quiet systemctl
+            systemctl --user import-environment $etc_envs_keys
+        end
     else
         echo "No new environment variables to import" >&2
     end

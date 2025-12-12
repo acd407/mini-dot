@@ -4,7 +4,7 @@ remotes:
     addr: unix://
     public: false
   mirror-images:
-    addr: https://mirrors.tuna.tsinghua.edu.cn/lxc-images/
+    addr: https://mirrors.cernet.edu.cn/lxc-images/
     protocol: simplestreams
     public: true
 aliases: {}
