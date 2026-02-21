@@ -1,11 +1,8 @@
 if status is-interactive
     abbr -a -- l ls
-    abbr -a -- ip 'ip -c -h -d'
     abbr -a -- sp speak
-    abbr -a -- hx helix
     abbr -a -- sc systemctl
     abbr -a -- scu 'systemctl --user'
-    abbr -a -- wcp wl-copy
     abbr -a -- pc 'pkg-config --cflags --libs'
     abbr -a -- df 'df -Th -x tmpfs'
     abbr -a -- img chafa
@@ -15,6 +12,10 @@ if status is-interactive
     abbr -a -- flatpak 'flatpak --user'
     abbr -a -- tlmgr 'tlmgr --usermode'
     abbr -a -- ni niri-session
+    abbr -a -- relock "env (cat /proc/(pidof swayidle)/environ | tr '\0' '\n' | rg '^(SWAYSOCK|WAYLAND_DISPLAY)') ~/.bin/wm/lock"
+    abbr -a -- pkui 'pkexec env WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR QT_QPA_PLATFORM=wayland'
+    abbr -a -- reload_ec "sudo sh -c 'modprobe -r cros_ec_lpcs cros_ec_keyb cros_ec_typec && sleep 1 && modprobe cros_ec_lpcs && modprobe cros_ec_keyb && modprobe cros_ec_typec'"
+    abbr -a -- prepare_suspend "sudo ectool --interface=lpc hostsleepstate freeze"
 
     if not command -v --quiet arp
         abbr -a -- arp 'cat /proc/net/arp'

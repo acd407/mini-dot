@@ -5,18 +5,27 @@
 # ./tk/fun.txt
 # ./tk/vir.txt
 
-# Q-Learning
-# HD-RL
+# <span style="color: red;"></span>
 
-# 综述
-# 十几的影响因子
-# A刊
-# 体系结构
+# 解决了
+# 指纹识别可以正常工作了
+#   https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/512
+#   https://aur.archlinux.org/libfprint-crfpmoc-git.git
 
-#改hosts: /etc/resolv.conf
-#ssh -D 127.0.0.1:10080 -CqTnNf 10.195.106.176
-#.config/environment.d/47.conf
-ALL_PROXY=socks5://acd407:0x08000000@localhost:4708
+# 无关紧要
+# 音频停止后咔咔响
+# IPU6摄像头偏绿
+# 隐私屏按键+限制视角
+#   https://forum.chrultrabook.com/t/hp-dragonfly-elite-nobara-linux-hp-privacy-screen-button/3160/14
+
+# 半解决
+# 休眠、睡眠
+#   https://forum.chrultrabook.com/t/chromebook-refuses-to-consistently-suspend-across-different-distros/7564
+#   https://github.com/MrChromebox/firmware/issues/851
+# 右上角 lock 按键，能重映射吗
+
+# 未解决
+# meta+ctrl+{5,6}无法触发
 
 sudo busybox udhcpd -f .config/udhcpd.conf
 
@@ -26,48 +35,3 @@ ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.10.1
 passwd wifi@cmcc
 
 /data/misc/apexdata/com.android.wifi/WifiConfigStoreSoftAp.xml
-
-interface=wlan0
-driver=nl80211
-ssid=tbox
-hw_mode=g
-channel=6
-wmm_enabled=0
-macaddr_acl=0
-auth_algs=1
-ignore_broadcast_ssid=0
-wpa=2
-wpa_passphrase=0x08000000
-wpa_key_mgmt=WPA-PSK
-rsn_pairwise=CCMP
-
-#!/usr/sbin/nft -f
-
-table inet filter {
-    chain input {
-        # DHCPv4
-        udp dport {67, 68} accept \
-            comment "Allow DHCPv4 traffic"
-
-        # DHCPv6 (SLAAC/DHCPv6)
-        ip6 saddr fe80::/10 udp dport {546, 547} accept \
-            comment "Allow DHCPv6 traffic (link-local)"
-    }
-}
-#!/usr/sbin/nft -f
-
-table ip nat {
-    chain postrouting {
-        type nat hook postrouting priority srcnat; policy accept;
-        iifname "wlan0" oifname != "wlan0" masquerade  # 关键修改点
-    }
-}
-
-table ip filter {
-    chain forward {
-        type filter hook forward priority filter; policy accept;
-        iifname "wlan0" oifname != "wlan0" accept      # 允许 wlan0 → 非 wlan0 的转发
-        iifname != "wlan0" oifname "wlan0" ct state { established, related } accept  # 允许已建立的连接返回
-    }
-}
-

@@ -21,18 +21,22 @@ function fish_prompt --description 'Write out the prompt'
         set color_user '\e[38;2;138;226;52m'
         set color_host '\e[38;2;114;159;207m'
         set color_cwd '\e[38;2;207;169;0m'
+        set color_time '\e[38;2;175;135;175m'
     else if test $support_colors -gt 16
         set color_user '\e[38;5;112m'
         set color_host '\e[38;5;110m'
         set color_cwd '\e[38;5;178m'
+        set color_time '\e[38;5;139m'
     else if test $support_colors -gt 8
         set color_user '\e[92m'
         set color_host '\e[94m'
         set color_cwd '\e[33m'
+        set color_time '\e[95m'
     else
         set color_user '\e[32m'
         set color_host '\e[34m'
         set color_cwd '\e[33m'
+        set color_time '\e[35m'
     end
 
     # Color the prompt differently when we're root
@@ -55,6 +59,7 @@ function fish_prompt --description 'Write out the prompt'
     echo -e -n -s \
         $color_user $USER $color_normal @ \
         $color_host $hostname $color_normal \
+        $color_time ' ' (date +%T) \
         $color_cwd ' ' (prompt_pwd) \
         (if functions -q fish_vcs_prompt
             echo -e -n -s $color_vcs (fish_vcs_prompt)

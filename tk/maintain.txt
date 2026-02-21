@@ -1,11 +1,14 @@
 # vim: ft=bash
 
+set GRUB_MODULES "all_video boot btrfs cat chain configfile echo efifwsetup efinet ext2 fat font gettext gfxmenu gfxterm gfxterm_background gzio halt help hfsplus iso9660 jpeg keystatus loadenv loopback linux ls lsefi lsefimmap lsefisystab lssal memdisk minicmd normal ntfs part_apple part_msdos part_gpt password_pbkdf2 png probe reboot regexp search search_fs_uuid search_fs_file search_label sleep smbios squash4 test true video xfs zfs zfscrypt zfsinfo play cpuid tpm"
 sudo grub-install --efi-directory=/boot --boot-directory=/boot /dev/nvme0n1p1 \
-    --bootloader-id=GRUB --modules="tpm" --disable-shim-lock
+          --bootloader-id=GRUB --modules=$GRUB_MODULES --disable-shim-lock --sbat /usr/share/grub/sbat.csv
 sudo mkinitcpio -P
 sudo sbctl sign-all
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo grub-mkfont -s 32 -o /boot/grub/fonts/unicode.pf2 /usr/share/fonts/misc/ter-u32b.otb
+
+sudo ddcutil setvcp 10 40 --noverify
 
 usermod -a -G uucp acd407
 groupmod -a -U acd407 vboxusers

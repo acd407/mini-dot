@@ -15,7 +15,7 @@ if status is-interactive
         set -gx RUSTUP_UPDATE_ROOT 'https://rsproxy.cn/rustup'
     end
     if command -v --quiet go
-        set -gx GOPROXY 'https://goproxy.io'
+        set -gx GOPROXY 'https://goproxy.cn'
         set -gx GOPATH "$XDG_DATA_HOME/go"
         fish_add_path -a $GOPATH/bin
     end
@@ -49,5 +49,10 @@ if status is-interactive
 
     if command -v --quiet firefox
         set -gx BROWSER firefox
+    end
+
+    set -gx PNPM_HOME "/home/acd407/.local/share/pnpm"
+    if not string match -q -- $PNPM_HOME $PATH
+        set -gx PATH "$PNPM_HOME" $PATH
     end
 end
