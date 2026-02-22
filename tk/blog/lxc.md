@@ -137,7 +137,7 @@ usermod -aG sudo acd407
 cp -r .ssh/ /var/lib/lxc/debian/rootfs/home/acd407/
 
 # 以用户身份进入容器，克隆配置仓库
-lxc-attach -n debian --clear-env --set-var TERM=foot -u 1000
+lxc-attach -n debian --clear-env --set-var TERM=$TERM -- su -l $USER
 git clone git@github.com:acd407/dot.git # 我自己的配置文件仓库
 rm -rf .config/ && mv dot/ .config/
 ```
