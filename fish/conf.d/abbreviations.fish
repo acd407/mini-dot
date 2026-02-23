@@ -16,6 +16,7 @@ if status is-interactive
     abbr -a -- pkui 'pkexec env WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR QT_QPA_PLATFORM=wayland'
     abbr -a -- reload_ec "sudo sh -c 'modprobe -r cros_ec_lpcs cros_ec_keyb cros_ec_typec && sleep 1 && modprobe cros_ec_lpcs && modprobe cros_ec_keyb && modprobe cros_ec_typec'"
     abbr -a -- prepare_suspend "sudo ectool --interface=lpc hostsleepstate freeze"
+    abbr -a -- abduco_new 'ABDUCO_ID=(random) abduco -c $ABDUCO_ID $SHELL'
 
     if not command -v --quiet arp
         abbr -a -- arp 'cat /proc/net/arp'

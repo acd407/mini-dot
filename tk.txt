@@ -35,5 +35,3 @@ ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.10.1
 passwd wifi@cmcc
 
 /data/misc/apexdata/com.android.wifi/WifiConfigStoreSoftAp.xml
-
-/etc/udev/rules.d/99-lid-close.rules

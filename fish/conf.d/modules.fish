@@ -41,6 +41,11 @@ if status is-interactive
         set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     end
 
+    if command -v --quiet abduco
+        set -gx ABDUCO_SOCKET_DIR $XDG_STATE_HOME
+        mkdir -p $ABDUCO_SOCKET_DIR
+    end
+
     if test -n "$WAYLAND_DISPLAY"
         # 更新 TTY 信息，让 pinentry 弹出在正确的位置
         set -gx GPG_TTY (tty)
