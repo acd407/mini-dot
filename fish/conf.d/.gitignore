@@ -1,8 +1,8 @@
 /*
 !.gitignore
-!abbreviations.fish
-!bind.fish
-!envs.fish
-!colors.fish
-!modules.fish
-!motd.fish
+!00_envs.fish
+!05_modules.fish
+!10_abbreviations.fish
+!99_bind.fish
+!99_colors.fish
+!99_motd.fish
