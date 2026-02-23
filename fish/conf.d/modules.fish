@@ -41,9 +41,8 @@ if status is-interactive
         set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     end
 
-    if command -v --quiet abduco
-        set -gx ABDUCO_SOCKET_DIR $XDG_STATE_HOME
-        mkdir -p $ABDUCO_SOCKET_DIR
+    if command -v --quiet dtach
+        mkdir -p $XDG_STATE_HOME/dtach
     end
 
     if test -n "$WAYLAND_DISPLAY"

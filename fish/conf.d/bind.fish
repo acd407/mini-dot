@@ -1,7 +1,7 @@
 if status is-interactive
-    function abduco_detach
-        if set -q ABDUCO_ID
-            set -l pid (ps au | grep $ABDUCO_ID | sed '/grep/d' | awk '{print $2}')
+    function dtach_detach
+        if set -q DTACH_ID
+            set -l pid (ps au | grep $DTACH_ID | sed '/grep/d' | awk '{print $2}')
             if test $pid
                 kill -HUP $pid
             end
@@ -28,5 +28,5 @@ if status is-interactive
     bind alt-left prevd-or-backward-word
     bind alt-right nextd-or-forward-word
 
-    bind ctrl-\\ abduco_detach
+    bind ctrl-\\ dtach_detach
 end
