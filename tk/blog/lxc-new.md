@@ -15,5 +15,5 @@ sudo usermod -aG sudo acd407
 cp .ssh/ .local/share/lxc/debian/rootfs/home/acd407/ -r
 
 lxc-attach -n debian --clear-env --set-var TERM=foot -u 1000
-git clone git@github.com:acd407/mini-dot.git
+git clone https://gitee.com/mathtimes/mini-dot.git
 rm -r .config/ && mv mini-dot/ .config/

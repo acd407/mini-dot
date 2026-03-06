@@ -20,7 +20,7 @@ if status is-interactive
         if test -d $HOME/.bin/appimage
             fish_add_path -a $HOME/.bin/appimage
         end
-        if test -n "$SWAYSOCK"
+        if test -n "$WAYLAND_DISPLAY"
             fish_add_path -a $HOME/.bin/wm
         end
     end

@@ -7,26 +7,6 @@
 
 # <span style="color: red;"></span>
 
-# 解决了
-# 指纹识别可以正常工作了
-#   https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/512
-#   https://aur.archlinux.org/libfprint-crfpmoc-git.git
-
-# 无关紧要
-# 音频停止后咔咔响
-# IPU6摄像头偏绿
-# 隐私屏按键+限制视角
-#   https://forum.chrultrabook.com/t/hp-dragonfly-elite-nobara-linux-hp-privacy-screen-button/3160/14
-
-# 半解决
-# 休眠、睡眠
-#   https://forum.chrultrabook.com/t/chromebook-refuses-to-consistently-suspend-across-different-distros/7564
-#   https://github.com/MrChromebox/firmware/issues/851
-# 右上角 lock 按键，能重映射吗
-
-# 未解决
-# meta+ctrl+{5,6}无法触发
-
 sudo busybox udhcpd -f .config/udhcpd.conf
 
 router: 
@@ -35,3 +15,15 @@ ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.10.1
 passwd wifi@cmcc
 
 /data/misc/apexdata/com.android.wifi/WifiConfigStoreSoftAp.xml
+
+
+研究的问题
+请解释这篇论文的以下几个问题：1. 论文研究了什么问题，2.为什么这个问题是一个很重要的问题，3.当前研究这个问题的现状是什么，4.本文提出了什么算法，5.为什么这个算法是合理并且有效的，6.文章做了什么实验来验证这个算法，7.为什么这些实验是合理的，8.作者还做了什么论述来证明这个算法的有效性？
+读文章内容
+问题》方法
+优化什么指标？
+file:///home/acd407/Documents/%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9A%84%E7%BC%96%E8%AF%91%E6%A6%82%E5%BF%B5.pdf
+发散思考+自己的认识
+每一篇文章1-2页读书笔记
+
+123456@yhf
