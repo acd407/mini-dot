@@ -5,6 +5,34 @@ set -gx CMAKE_BUILD_PARALLEL_LEVEL 8
 
 set -g fish_greeting
 
+# 确实应该优先导入系统的，后面在导入会让 fish 自己的配置失效
+if status is-login
+    set oldenv (mktemp)
+    set newenv (mktemp)
+
+    dash -c "
+        export -p | sort >$oldenv
+        set -a
+        . $HOME/.config/environment.d/*
+        set +a
+        . /etc/profile
+        export -p | sort >$newenv
+    "
+
+    for line in (comm -13 $oldenv $newenv | grep '^export ' | grep -v '^export LC_')
+        set name (string replace -r '^export ([^=]+)=.*' '$1' -- $line)
+        set value (string replace -r '^export [^=]+=(.*)' '$1' -- $line)
+
+        set -gx $name (string unescape -- $value)
+
+        if command -q systemctl
+            systemctl --user import-environment $name
+        end
+    end
+
+    rm -f $oldenv $newenv
+end
+
 for i in /{usr/{local/,},}{,s}bin
     if not contains $i $PATH; and test -d $i
         set -a PATH $i
@@ -35,29 +63,3 @@ if status is-interactive
     end
 end
 
-if status is-login
-    set oldenv (mktemp)
-    set newenv (mktemp)
-
-    dash -c "
-        export -p | sort >$oldenv
-        set -a
-        . $HOME/.config/environment.d/*
-        set +a
-        . /etc/profile
-        export -p | sort >$newenv
-    "
-
-    for line in (comm -13 $oldenv $newenv | grep '^export ' | grep -v '^export LC_')
-        set name (string replace -r '^export ([^=]+)=.*' '$1' -- $line)
-        set value (string replace -r '^export [^=]+=(.*)' '$1' -- $line)
-
-        set -gx $name (string unescape -- $value)
-
-        if command -q systemctl
-            systemctl --user import-environment $name
-        end
-    end
-
-    rm -f $oldenv $newenv
-end
