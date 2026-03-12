@@ -20,12 +20,18 @@ end
 
 function xray --description "Add Xray subcommands"
     if test "$argv[1]" = statistics
-        set -l up (xray api stats -name "outbound>>>proxy>>>traffic>>>uplink" | jq '.stat.value')
+        set -l up 0
+        for i in proxy pure
+            set up (math "$up + $(xray api stats -name outbound\>\>\>$i\>\>\>traffic\>\>\>uplink | jq '.stat.value')")
+        end
         if test $up != null
             echo -en "Upload:   "
             format_storage_units $up
         end
-        set -l down (xray api stats -name "outbound>>>proxy>>>traffic>>>downlink" | jq '.stat.value')
+        set -l down 0
+        for i in proxy pure
+            set down (math "$down + $(xray api stats -name outbound\>\>\>$i\>\>\>traffic\>\>\>downlink | jq '.stat.value')")
+        end
         if test $down != null
             echo -en "Download: "
             format_storage_units $down

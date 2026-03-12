@@ -6,7 +6,7 @@ lxc-attach -n debian --clear-env --set-var TERM=linux
 
 sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 apt update
-apt install wget curl git vis fastfetch vivid fish foot-terminfo gpg openssh-server lsof
+apt install wget curl git vis fastfetch vivid fish foot-terminfo gpg openssh-server lsof openssl ca-certificates
 
 useradd -m -u 1000 -s /usr/bin/fish acd407
 passwd acd407
@@ -14,6 +14,6 @@ sudo usermod -aG sudo acd407
 
 cp .ssh/ .local/share/lxc/debian/rootfs/home/acd407/ -r
 
-lxc-attach -n debian --clear-env --set-var TERM=foot -u 1000
+lxc-attach -n debian --clear-env --set-var TERM=$TERM -- su -l $USER
 git clone https://gitee.com/mathtimes/mini-dot.git
 rm -r .config/ && mv mini-dot/ .config/

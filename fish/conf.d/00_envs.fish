@@ -35,14 +35,13 @@ if status is-interactive
     end
 end
 
-# source /etc/profile with dash
 if status is-login
-    # ========== 第一部分：/etc/profile → shell → systemd ==========
     set -l oldenv (mktemp -p "$PREFIX/tmp" env.old.XXXXXX)
     set -l newenv (mktemp -p "$PREFIX/tmp" env.new.XXXXXX)
 
     dash -c '
     export -p | sort >"'$oldenv'"
+    . ~/.config/environment.d/* >/dev/null 2>&1
     . /etc/profile >/dev/null 2>&1
     export -p | sort >"'$newenv'"
     '
@@ -63,47 +62,4 @@ if status is-login
     end
 
     rm -f $oldenv $newenv
-
-    # ========== 第二部分：systemd → shell (跳过只读变量) ==========
-    if command -v --quiet systemctl
-        # 定义不应覆盖的变量（支持正则匹配）
-        set -l readonly_patterns \
-            '^PATH$' '^HOME$' '^USER$' '^LOGNAME$' '^SHELL$' \
-            '^PWD$' '^OLDPWD$' '^SHLVL$' '^_$' \
-            '^LANG$' '^LC_' \
-            '^XDG_SESSION_' '^XDG_RUNTIME_DIR$' '^XDG_CURRENT_DESKTOP$' \
-            '^DBUS_SESSION_BUS_ADDRESS$' \
-            '^DISPLAY$' '^XAUTHORITY$' \
-            '^TERM$' '^SESSION_MANAGER$' '^DESKTOP_SESSION$' '^GDMSESSION$' \
-            '^SSH_AUTH_SOCK$' '^SSH_AGENT_PID$' '^SSH_CONNECTION$' '^SSH_CLIENT$'
-
-        # 遍历 systemd 环境变量
-        for line in (systemctl --user show-environment 2>/dev/null)
-            if test -n "$line"
-                set -l var_name (string split -m 1 '=' -- $line)[1]
-                set -l var_value (string split -m 1 '=' -- $line)[2]
-
-                # 检查是否匹配只读模式
-                set -l is_readonly false
-                for pattern in $readonly_patterns
-                    if string match -qr -- $pattern $var_name
-                        set is_readonly true
-                        break
-                    end
-                end
-
-                if test $is_readonly = true
-                    continue
-                end
-
-                # 跳过已在 fish 中存在的变量
-                if set -q $var_name
-                    continue
-                end
-
-                # 设置环境变量
-                set -gx $var_name $var_value
-            end
-        end
-    end
 end

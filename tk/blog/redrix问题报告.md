@@ -321,6 +321,10 @@ Windows上同样不可用，怀疑是硬件连线的限制。
 
 [chrultrabook forum](https://forum.chrultrabook.com/t/chromebook-refuses-to-consistently-suspend-across-different-distros/7564)和[github](https://github.com/MrChromebox/firmware/issues/851)上有专门的讨论。
 
+### 3 月 10 日更新
+
+事情起了一些变化，详见[cros_ec_timeout](https://github.com/MrChromebox/firmware/issues/851#issuecomment-4029188293)。
+
 ## 触控板失灵 ⚠️
 
 这个机器的触控板还是挺好的，全域压力触控板。
