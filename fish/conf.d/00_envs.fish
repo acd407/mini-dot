@@ -1,32 +1,3 @@
-if status is-login
-    set -l oldenv (mktemp -p "$PREFIX/tmp" env.old.XXXXXX)
-    set -l newenv (mktemp -p "$PREFIX/tmp" env.new.XXXXXX)
-
-    dash -c '
-    export -p | sort >"'$oldenv'"
-    . ~/.config/environment.d/* >/dev/null 2>&1
-    . /etc/profile >/dev/null 2>&1
-    export -p | sort >"'$newenv'"
-    '
-
-    set -l etc_envs (comm -13 $oldenv $newenv | grep -v '^export LC_')
-
-    set -l etc_envs_keys
-    for line in $etc_envs
-        set -l var_name (string replace -r '^export ([^=]+).*' '$1' -- $line)
-        set -a etc_envs_keys $var_name
-    end
-
-    if set -q etc_envs_keys[1]
-        eval $etc_envs
-        if command -v --quiet systemctl
-            systemctl --user import-environment $etc_envs_keys
-        end
-    end
-
-    rm -f $oldenv $newenv
-end
-
 set -l CPU_COUNT (nproc)
 set -gx MAKEFLAGS "-j$CPU_COUNT"
 set -gx OPENBLAS_NUM_THREADS $CPU_COUNT
@@ -62,4 +33,31 @@ if status is-interactive
             set -p PATH /usr/lib/ccache/bin
         end
     end
+end
+
+if status is-login
+    set oldenv (mktemp)
+    set newenv (mktemp)
+
+    dash -c "
+        export -p | sort >$oldenv
+        set -a
+        . $HOME/.config/environment.d/*
+        set +a
+        . /etc/profile
+        export -p | sort >$newenv
+    "
+
+    for line in (comm -13 $oldenv $newenv | grep '^export ' | grep -v '^export LC_')
+        set name (string replace -r '^export ([^=]+)=.*' '$1' -- $line)
+        set value (string replace -r '^export [^=]+=(.*)' '$1' -- $line)
+
+        set -gx $name (string unescape -- $value)
+
+        if command -q systemctl
+            systemctl --user import-environment $name
+        end
+    end
+
+    rm -f $oldenv $newenv
 end
