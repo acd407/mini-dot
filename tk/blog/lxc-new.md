@@ -6,7 +6,7 @@ lxc-attach -n debian --clear-env --set-var TERM=linux
 
 sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 apt update
-apt install wget curl git vis fastfetch vivid fish foot-terminfo gpg openssh-server lsof openssl ca-certificates
+apt install wget curl git vis fastfetch vivid fish foot-terminfo gpg openssh-server lsof openssl ca-certificates build-essential dtach
 
 useradd -m -u 1000 -s /usr/bin/fish acd407
 passwd acd407

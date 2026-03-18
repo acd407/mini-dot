@@ -19,7 +19,7 @@ if status is-login
         export -p | sort >$newenv
     "
 
-    for line in (comm -13 $oldenv $newenv | grep '^export ' | grep -v '^export LC_')
+    for line in (comm -13 $oldenv $newenv | grep '^export ' | grep -v '^export LC_' | grep -v '^export LANG')
         set name (string replace -r '^export ([^=]+)=.*' '$1' -- $line)
         set value (string replace -r '^export [^=]+=(.*)' '$1' -- $line)
 
