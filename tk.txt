@@ -16,6 +16,10 @@ passwd wifi@cmcc
 
 /data/misc/apexdata/com.android.wifi/WifiConfigStoreSoftAp.xml
 
+# <audio id="1" type="pulseaudio" serverName="/run/user/1000/pulse/native">
+#   <input latency="20000"/>
+#   <output latency="20000"/>
+# </audio>
 
 研究的问题
 请解释这篇论文的以下几个问题：1. 论文研究了什么问题，2.为什么这个问题是一个很重要的问题，3.当前研究这个问题的现状是什么，4.本文提出了什么算法，5.为什么这个算法是合理并且有效的，6.文章做了什么实验来验证这个算法，7.为什么这些实验是合理的，8.作者还做了什么论述来证明这个算法的有效性？
@@ -26,48 +30,6 @@ file:///home/acd407/Documents/%E4%BD%A0%E5%BF%85%E9%A1%BB%E6%8E%8C%E6%8F%A1%E7%9
 发散思考+自己的认识
 每一篇文章1-2页读书笔记
 
-acd407@redrix 15:02:40 ~ 
-$ sudo ectool motionsense info 0
-Type:     accel
-Location: lid
-Chip:     bma422
-Min Frequency:              12500 mHz
-Max Frequency:              200000 mHz
-FIFO Max Event Count:       256
-Flags:                      0
-acd407@redrix 15:02:45 ~ 
-$ sudo ectool motionsense info 1
-Type:     accel
-Location: base
-Chip:     lsm6dsm
-Min Frequency:              13000 mHz
-Max Frequency:              208000 mHz
-FIFO Max Event Count:       256
-Flags:                      0
-acd407@redrix 15:02:51 ~ 
-$ sudo ectool motionsense info 2
-Type:     gyro
-Location: base
-Chip:     lsm6dsm
-Min Frequency:              13000 mHz
-Max Frequency:              208000 mHz
-FIFO Max Event Count:       256
-Flags:                      0
-acd407@redrix 15:03:07 ~ 
-$ sudo ectool motionsense info 3
-Type:     light
-Location: camera
-Chip:     tcs3400
-Min Frequency:              149 mHz
-Max Frequency:              1000 mHz
-FIFO Max Event Count:       256
-Flags:                      0
-acd407@redrix 15:03:13 ~ 
-$ sudo ectool motionsense info 4
-Type:     rgb light
-Location: camera
-Chip:     tcs3400
-Min Frequency:              0 mHz
-Max Frequency:              0 mHz
-FIFO Max Event Count:       256
-Flags:                      0
+# capital local leopard balance type replace permit opinion hazard reflect fence carbon can story public
+#
+# HOHAI##18305166195jxy

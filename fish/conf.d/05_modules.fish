@@ -36,19 +36,8 @@ if status is-interactive
     set -gx PYTHONSTARTUP $XDG_CONFIG_HOME/pythonrc
     set -gx PYTHON_HISTORY $XDG_STATE_HOME/python_history
 
-    if command -v --quiet gpgconf
-        set -e SSH_AGENT_PID
-        set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-    end
-
     if command -v --quiet dtach
         mkdir -p $XDG_STATE_HOME/dtach
-    end
-
-    if test -n "$WAYLAND_DISPLAY"
-        # 更新 TTY 信息，让 pinentry 弹出在正确的位置
-        set -gx GPG_TTY (tty)
-        gpg-connect-agent updatestartuptty /bye >/dev/null
     end
 
     if command -v --quiet firefox
