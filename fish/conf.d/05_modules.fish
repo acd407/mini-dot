@@ -7,6 +7,11 @@ if status is-interactive
             set -a PATH $HOME/node_modules/.bin
         end
     end
+    if command -v --quiet pnpm
+        if test -d $XDG_DATA_HOME/pnpm/bin
+            set -a PATH $XDG_DATA_HOME/pnpm/bin
+        end
+    end
     if command -v --quiet cargo
         if test -d $HOME/.cargo/bin
             set -a PATH $HOME/.cargo/bin

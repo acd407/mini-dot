@@ -13,7 +13,9 @@ if status is-login
     dash -c "
         export -p | sort >$oldenv
         set -a
-        . $HOME/.config/environment.d/*
+        for f in \$HOME/.config/environment.d/*; do
+            . \$f
+        done
         set +a
         . /etc/profile
         export -p | sort >$newenv

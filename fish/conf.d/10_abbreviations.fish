@@ -8,6 +8,9 @@ if status is-interactive
     abbr -a -- img chafa
     abbr -a -- yz yazi
     abbr -a -- ping 'ping -n'
+    abbr -a -- pbd 'ping -n 36.152.44.96'
+    abbr -a -- p6d 'ping -n 2400:3200::1'
+    abbr -a -- pp "ping -n (command ip -j route | jq -r '.[] | select(.dst == \"default\") | .gateway')"
     abbr -a -- base16 'xxd -ps'
     abbr -a -- flatpak 'flatpak --user'
     abbr -a -- tlmgr 'tlmgr --usermode'

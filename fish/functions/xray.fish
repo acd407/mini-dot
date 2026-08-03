@@ -19,23 +19,21 @@ function format_storage_units --argument bytes
 end
 
 function xray --description "Add Xray subcommands"
-    if test "$argv[1]" = statistics
-        set -l up 0
-        for i in proxy pure
-            set up (math "$up + $(xray api stats -name outbound\>\>\>$i\>\>\>traffic\>\>\>uplink | jq '.stat.value')")
-        end
+    if test "$argv[1]" = stat
+        set -l up (xray api statsquery --server=:4000 -pattern "outbound>>>sub_" | jq '.stat | map(select(.name | test("uplink$")).value) | add')
         if test $up != null
             echo -en "Upload:   "
             format_storage_units $up
         end
-        set -l down 0
-        for i in proxy pure
-            set down (math "$down + $(xray api stats -name outbound\>\>\>$i\>\>\>traffic\>\>\>downlink | jq '.stat.value')")
-        end
+        set -l down (xray api statsquery --server=:4000 -pattern "outbound>>>sub_" | jq '.stat | map(select(.name | test("downlink$")).value) | add')
         if test $down != null
             echo -en "Download: "
             format_storage_units $down
         end
+    else if test "$argv[1]" = test
+        xray api thc --server=127.0.0.1:4000 sub
+    else if test "$argv[1]" = list -o "$argv[1]" = ls
+        xray api obs --server=127.0.0.1:4000
     else if test "$argv[1]" = status
         set -l rule "fwmark 0x20 lookup 100 pre 32765"
         if test "$argv[2]" = up
@@ -50,4 +48,4 @@ function xray --description "Add Xray subcommands"
     end
 end
 
-complete -c xray -n __fish_use_subcommand -xa "run version api convert tls uuid x25519 wg status statistics"
+complete -c xray -n __fish_use_subcommand -xa "run version api convert tls uuid x25519 wg stat test list ls status"

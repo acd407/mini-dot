@@ -8,3 +8,5 @@ end
 function foot_cmd_end --on-event fish_postexec
     echo -en "\e]133;D\e\\"
 end
+
+set -g fish_history fish
