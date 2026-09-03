@@ -25,7 +25,16 @@ if status is-login
         set name (string replace -r '^export ([^=]+)=.*' '$1' -- $line)
         set value (string replace -r '^export [^=]+=(.*)' '$1' -- $line)
 
-        set -gx $name (string unescape -- $value)
+        if test "$name" = "PATH"
+            set -l new_path_list (string split : -- (string unescape -- $value))
+            for p in $new_path_list
+                if not contains -- $p $PATH
+                    set -g -a PATH $p
+                end
+            end
+        else
+            set -gx $name (string unescape -- $value)
+        end
 
         if command -q systemctl
             systemctl --user import-environment $name

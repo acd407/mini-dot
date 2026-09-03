@@ -1,0 +1,15 @@
+complete -c lxc-autostart -n __fish_use_subcommand -s k -l kill -d "Kill containers instead of starting"
+complete -c lxc-autostart -n __fish_use_subcommand -s L -l list -d "List all affected containers"
+complete -c lxc-autostart -n __fish_use_subcommand -s r -l reboot -d "Reboot containers instead of starting"
+complete -c lxc-autostart -n __fish_use_subcommand -s s -l shutdown -d "Shutdown containers instead of starting"
+complete -c lxc-autostart -n __fish_use_subcommand -s a -l all -d "List all auto-started containers"
+complete -c lxc-autostart -n __fish_use_subcommand -s A -l ignore-auto -d "Ignore lxc.start.auto"
+complete -c lxc-autostart -n __fish_use_subcommand -s g -l groups -d "List of groups to select"
+complete -c lxc-autostart -n __fish_use_subcommand -s t -l timeout -d "Wait T seconds before hard-stopping"
+complete -c lxc-autostart -n __fish_use_subcommand -s o -l logfile -d "Output log to FILE" -r
+complete -c lxc-autostart -n __fish_use_subcommand -s l -l logpriority -d "Set log priority" -x -a "DEBUG INFO NOTICE WARN ERROR CRIT ALERT EMERG"
+complete -c lxc-autostart -n __fish_use_subcommand -s q -l quiet -d "Don't produce any output"
+complete -c lxc-autostart -n __fish_use_subcommand -s P -l lxcpath -d "Use specified container path" -r
+complete -c lxc-autostart -n __fish_use_subcommand -s '?' -l help -d "Show help"
+complete -c lxc-autostart -n __fish_use_subcommand -l usage -d "Show short usage"
+complete -c lxc-autostart -n __fish_use_subcommand -l version -d "Print version"

@@ -1,0 +1,18 @@
+complete -c lxc-ls -n __fish_use_subcommand -s 1 -l line -d "Show one entry per line"
+complete -c lxc-ls -n __fish_use_subcommand -s f -l fancy -d "Use column-based output"
+complete -c lxc-ls -n __fish_use_subcommand -s F -l fancy-format -d "Comma separated list of columns" -x -a "NAME STATE PID RAM SWAP AUTOSTART GROUPS INTERFACE IPV4 IPV6 UNPRIVILEGED"
+complete -c lxc-ls -n __fish_use_subcommand -l active -d "List only active containers"
+complete -c lxc-ls -n __fish_use_subcommand -l running -d "List only running containers"
+complete -c lxc-ls -n __fish_use_subcommand -l frozen -d "List only frozen containers"
+complete -c lxc-ls -n __fish_use_subcommand -l stopped -d "List only stopped containers"
+complete -c lxc-ls -n __fish_use_subcommand -l defined -d "List only defined containers"
+complete -c lxc-ls -n __fish_use_subcommand -l nesting -d "List nested containers up to NUM levels"
+complete -c lxc-ls -n __fish_use_subcommand -l filter -d "Filter container names by regex"
+complete -c lxc-ls -n __fish_use_subcommand -s g -l groups -d "Comma separated list of groups"
+complete -c lxc-ls -n __fish_use_subcommand -s o -l logfile -d "Output log to FILE" -r
+complete -c lxc-ls -n __fish_use_subcommand -s l -l logpriority -d "Set log priority" -x -a "DEBUG INFO NOTICE WARN ERROR CRIT ALERT EMERG"
+complete -c lxc-ls -n __fish_use_subcommand -s q -l quiet -d "Don't produce any output"
+complete -c lxc-ls -n __fish_use_subcommand -s P -l lxcpath -d "Use specified container path" -r
+complete -c lxc-ls -n __fish_use_subcommand -s '?' -l help -d "Show help"
+complete -c lxc-ls -n __fish_use_subcommand -l usage -d "Show short usage"
+complete -c lxc-ls -n __fish_use_subcommand -l version -d "Print version"
