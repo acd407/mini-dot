@@ -25,13 +25,9 @@ if status is-login
         set name (string replace -r '^export ([^=]+)=.*' '$1' -- $line)
         set value (string replace -r '^export [^=]+=(.*)' '$1' -- $line)
 
-        if test "$name" = "PATH"
+        if test "$name" = PATH
             set -l new_path_list (string split : -- (string unescape -- $value))
-            for p in $new_path_list
-                if not contains -- $p $PATH
-                    set -g -a PATH $p
-                end
-            end
+            fish_add_path --global --move --append --path $new_path_list
         else
             set -gx $name (string unescape -- $value)
         end
@@ -52,25 +48,21 @@ end
 
 if status is-interactive
     if test -d $HOME/.bin
-        set -a PATH $HOME/.bin
+        fish_add_path --global --move --append --path $HOME/.bin
         if test -d $HOME/.bin/custom
-            set -a PATH $HOME/.bin/custom
-        end
-        if test -d $HOME/.bin/appimage
-            set -a PATH $HOME/.bin/appimage
+            fish_add_path --global --move --append --path $HOME/.bin/custom
         end
         if test -n "$WAYLAND_DISPLAY"
-            set -a PATH $HOME/.bin/wm
+            fish_add_path --global --move --append --path $HOME/.bin/wm
         end
     end
     if test -d $HOME/.local/bin
-        set -a PATH $HOME/.local/bin
+        fish_add_path --global --move --append --path $HOME/.local/bin
     end
     if test -d /usr/lib/ccache
-        set -p PATH /usr/lib/ccache
+        fish_add_path --global --move --path /usr/lib/ccache
         if test -d /usr/lib/ccache/bin
-            set -p PATH /usr/lib/ccache/bin
+            fish_add_path --global --move --path /usr/lib/ccache/bin
         end
     end
 end
-

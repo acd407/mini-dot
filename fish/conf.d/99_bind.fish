@@ -34,14 +34,19 @@ if status is-interactive
         set -l cmdline (commandline -b)
         set -l first_word (echo $cmdline | cut -d" " -f1)
 
+        # 特权编辑器：doasedit 是通用特权编辑器（同 sudoedit）；visudo 只用于编辑 sudoers，不作为通用编辑器
+        set -l priv_editors sudoedit doasedit
+
+        # 特权提升工具列表（兜底用）
+        set -l priv_bins sudo doas please run0
+
         # 定义编辑器列表（包含 $EDITOR）
         set -l editors $EDITOR vim vi nano emacs neovim nvim
         # 移除空值
         set editors (string trim $editors | string match -v '')
 
-        # 检查是否以 visudo 或 doasedit 开头
-        if string match -q "visudo *" $cmdline; or string match -q "doasedit *" $cmdline
-            # 已经是 visudo/doasedit，恢复成 $EDITOR
+        # 已经是特权编辑命令（eg. sudoedit/doasedit file），去掉前缀恢复成普通 $EDITOR
+        if contains $first_word $priv_editors
             set -l file (echo $cmdline | cut -d" " -f2-)
             set -l editor $EDITOR
             if test -z "$editor"
@@ -49,17 +54,15 @@ if status is-interactive
             end
             commandline -r "$editor $file"
 
-            # 检查是否是编辑命令
+            # 是普通编辑命令，加上特权编辑器前缀
         else if contains $first_word $editors
-            # 是编辑命令，转为 visudo/doasedit
             set -l file (echo $cmdline | cut -d" " -f2-)
-            if command -q visudo
-                commandline -r "visudo $file"
+            if command -q sudoedit
+                commandline -r "sudoedit $file"
             else if command -q doasedit
                 commandline -r "doasedit $file"
             else
-                # fallback 到普通 sudo
-                for cmd in sudo doas please run0
+                for cmd in $priv_bins
                     if command -q $cmd
                         fish_commandline_prepend $cmd
                         break
@@ -69,7 +72,7 @@ if status is-interactive
 
         else
             # 普通命令：sudo toggle
-            for cmd in sudo doas please run0
+            for cmd in $priv_bins
                 if command -q $cmd
                     fish_commandline_prepend $cmd
                     break
