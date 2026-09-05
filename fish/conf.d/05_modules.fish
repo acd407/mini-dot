@@ -49,5 +49,7 @@ if status is-interactive
     set -gx HOMEBREW_BREW_GIT_REMOTE https://mirrors.ustc.edu.cn/brew.git
     set -gx HOMEBREW_BOTTLE_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles
     set -gx HOMEBREW_API_DOMAIN https://mirrors.ustc.edu.cn/homebrew-bottles/api
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish | sed 's/fish_add_path/fish_add_path --append/')"
+    if test -f /home/linuxbrew/.linuxbrew/bin/brew
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish | sed 's/fish_add_path/fish_add_path --append/')"
+    end
 end
