@@ -7,5 +7,9 @@ function fs --description "Small http file server"
     for i in $ips
         echo -e "\t$i:4780"
     end
-    python3 -m http.server --bind 0.0.0.0 4780 $argv
+    python3 -c "
+from http.server import test, SimpleHTTPRequestHandler as RH
+RH.extensions_map = {k: v + ';charset=UTF-8' for k, v in RH.extensions_map.items()}
+test(HandlerClass=RH, port=4780)
+"
 end
