@@ -10,3 +10,7 @@ function foot_cmd_end --on-event fish_postexec
 end
 
 set -g fish_history fish
+
+if test -f $HOME/.fishrc
+    source $HOME/.fishrc
+end
