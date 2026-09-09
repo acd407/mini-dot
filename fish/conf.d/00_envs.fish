@@ -21,7 +21,7 @@ if status is-login
             . \$f
         done
         set +a
-        . /etc/profile
+        test -f /etc/profile && . /etc/profile
         export -p | sort >$newenv
     "
 
