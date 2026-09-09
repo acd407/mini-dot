@@ -1,4 +1,4 @@
- # 加载 systemd environment.d 风格的环境变量文件
+# 加载 systemd environment.d 风格的环境变量文件
 function load_environment_d --description "Load environment variables from environment.d files"
     set -l files
     if set -q argv[1]
@@ -26,7 +26,6 @@ function load_environment_d --description "Load environment variables from envir
                 # 分割 KEY=VALUE（只分割第一个等号）
                 set -l kv (string split -m1 = $line)
                 if test (count $kv) -ne 2
-                    # 错误信息输出到 stderr，不会影响标准输出
                     echo "警告: 无效行 '$line' 在文件 $file 中" >&2
                     continue
                 end
@@ -34,17 +33,17 @@ function load_environment_d --description "Load environment variables from envir
                 set -l key (string trim $kv[1])
                 set -l value (string trim $kv[2])
 
-                # 尝试去除外层双引号（若存在）
+                # 去除外层引号（双引号或单引号）
                 set value (string replace -r '^"([^"]*)"$' '$1' -- $value)
-                # 尝试去除外层单引号（若存在）
                 set value (string replace -r "^'([^']*)'\$" '$1' -- $value)
 
-                # 将 ${VAR} 转换为 {$VAR}，以兼容 Fish 语法
-                set value (string replace -r '\$\{([^}]+)\}' '{\$$1}' -- $value)
+                # 关键：将 ${VAR} 转换为 $VAR（去掉花括号）
+                set value (string replace -r '\$\{([^}]+)\}' '\$$1' -- $value)
 
-                # 使用 eval 设置，同时展开 $VAR 和 {$VAR}
+                # 使用 eval 设置，同时展开 $VAR
                 eval "set -gx $key \"$value\""
-            end < $file
+            end <$file
         end
     end
+    return 0
 end
