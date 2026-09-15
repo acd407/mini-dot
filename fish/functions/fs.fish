@@ -10,6 +10,15 @@ function fs --description "Small http file server"
     python3 -c "
 from http.server import test, SimpleHTTPRequestHandler as RH
 RH.extensions_map = {k: v + ';charset=UTF-8' for k, v in RH.extensions_map.items()}
+RH.extensions_map.update({
+    '.md':   'text/markdown;charset=UTF-8',
+    '.txt':  'text/plain;charset=UTF-8',
+    '.html': 'text/html;charset=UTF-8',
+    '.css':  'text/css;charset=UTF-8',
+    '.js':   'application/javascript;charset=UTF-8',
+    '.json': 'application/json;charset=UTF-8',
+    '.py':   'text/x-python;charset=UTF-8',
+})
 test(HandlerClass=RH, port=4780)
 "
 end
